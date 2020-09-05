@@ -26,9 +26,4 @@ public class Song {
   @Column(length = 64, nullable = false)
   private Double songLength;
 
-  @Column(length = 64, nullable = false)
-  private Integer songView;
-
-
-
 }
