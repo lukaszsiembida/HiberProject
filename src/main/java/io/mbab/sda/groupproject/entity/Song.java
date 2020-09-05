@@ -6,10 +6,8 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Builder
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 public class Song {
 
   @Id
@@ -19,11 +17,22 @@ public class Song {
   @Column(length = 64, nullable = false)
   private String title;
 
-  @ManyToOne
   @Column(length = 64, nullable = false)
-  private SongAutor songAutor;
+  private String songAutor;
 
   @Column(length = 64, nullable = false)
   private Double songLength;
+
+  @ManyToOne
+  private Album album;
+
+  @Builder (toBuilder = true)
+  public Song (Integer id, String title, String songAutor, Double songLength, Album album){
+    this.id=id;
+    this.title=title;
+    this.songAutor = songAutor;
+    this.songLength = songLength;
+    this.album = album;
+  }
 
 }
