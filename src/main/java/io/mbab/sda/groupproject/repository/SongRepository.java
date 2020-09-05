@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class SongRepository implements CrudRepository2<Song, Integer> {
+public class SongRepository implements CrudRepository<Song, Integer> {
 
   private final EntityManager x;
 
@@ -21,7 +21,6 @@ public class SongRepository implements CrudRepository2<Song, Integer> {
     return null;
   }
 
-  @Override
   public Song findByTitle(String title) {
     return null;
   }
@@ -44,11 +43,6 @@ public class SongRepository implements CrudRepository2<Song, Integer> {
 
   @Override
   public Song update(Song entity) {
-    return null;
-  }
-
-  @Override
-  public Song save(Song entity) {
     return null;
   }
 

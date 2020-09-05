@@ -8,7 +8,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 
-public class AlbumRepository implements CrudRepository2<Album, Integer> {
+public class AlbumRepository implements CrudRepository<Album, Integer> {
 
 
     private final EntityManager em;
@@ -23,7 +23,6 @@ public class AlbumRepository implements CrudRepository2<Album, Integer> {
         return null;
     }
 
-    @Override
     public Album findByTitle(String albumTittle) {
         return null;
     }
@@ -42,11 +41,6 @@ public class AlbumRepository implements CrudRepository2<Album, Integer> {
 
     @Override
     public Album update(Album entity) {
-        return null;
-    }
-
-    @Override
-    public Album save(Album entity) {
         return null;
     }
 
