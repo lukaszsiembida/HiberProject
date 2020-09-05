@@ -21,18 +21,6 @@ public class SongRepository implements CrudRepository<Song, Integer> {
     return null;
   }
 
-  public Song findByTitle(String title) {
-    return null;
-  }
-
-  public Song findBySongLength(Double songLength) {
-    return null;
-  }
-
-  public Song findBySongAutor(String songAutor) {
-    return null;
-  }
-
   @Override
   public Song create(Song entity) {
     em.getTransaction().begin();
@@ -48,4 +36,16 @@ public class SongRepository implements CrudRepository<Song, Integer> {
 
   @Override
   public void delete(Integer o) {}
+
+  public Song findByTitle(String title) {
+    return null;
+  }
+
+  public Song findBySongLength(Double songLength) {
+    return null;
+  }
+
+  public Song findBySongAutor(String songAutor) {
+    return null;
+  }
 }
