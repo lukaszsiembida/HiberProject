@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Getter
 @NoArgsConstructor
 @ToString
-public class Album implements AlbumEditor<Song> {
+public class Album {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -38,13 +38,4 @@ public class Album implements AlbumEditor<Song> {
         return songs.stream().map(song -> song.toBuilder().album(this).build()).collect(Collectors.toUnmodifiableList());
     }
 
-    @Override
-    public Song add(Song song) {
-        return null;
-    }
-
-    @Override
-    public List<Album> getAll() {
-        return null;
-    }
 }
