@@ -9,11 +9,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SongRepository implements CrudRepository<Song, Integer> {
 
-  private final EntityManager x;
+  private final EntityManager em;
 
   @Override
   public List<Song> getAll() {
-    return x.createQuery("FROM Song", Song.class).getResultList();
+    return em.createQuery("FROM Song", Song.class).getResultList();
   }
 
   @Override
@@ -35,9 +35,9 @@ public class SongRepository implements CrudRepository<Song, Integer> {
 
   @Override
   public Song create(Song entity) {
-    x.getTransaction().begin();
-    x.persist(entity);
-    x.getTransaction().commit();
+    em.getTransaction().begin();
+    em.persist(entity);
+    em.getTransaction().commit();
     return entity;
   }
 
