@@ -10,4 +10,7 @@ public class CustomScanner {
     public String nextLine() {
         return scanner.nextLine();
     }
+
+    public Integer nextInt() {return scanner.nextInt();}
+
 }
