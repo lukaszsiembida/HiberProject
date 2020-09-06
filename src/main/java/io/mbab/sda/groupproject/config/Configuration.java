@@ -30,14 +30,6 @@ public final class Configuration {
 
   /* W tej metodzie należy zwrócić liste klas które są encjami, aplikacja samodzielnie ich nie zmapuje */
   public static Class[] getEntityClass() {
-    return new Class[] {City.class};
-  }
-
-  public static Class[] getEntityAlbum() {
-    return new Class[] {Album.class};
-  }
-
-  public static Class[] getEntitySong() {
-    return new Class[] {Song.class};
+    return new Class[] {City.class, Album.class, Song.class};
   }
 }

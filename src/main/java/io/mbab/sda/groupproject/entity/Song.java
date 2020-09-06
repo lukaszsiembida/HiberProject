@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
+
 @Entity
 @Getter
 @ToString
@@ -27,7 +28,7 @@ public class Song {
   private Album album;
 
   @Builder (toBuilder = true)
-  public Song (Integer id, String title, String songAutor, Double songLength, Album album){
+  public Song(Integer id, String title, String songAutor, Double songLength, Album album){
     this.id=id;
     this.title=title;
     this.songAutor = songAutor;

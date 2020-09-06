@@ -30,6 +30,7 @@ public class CreateAlbumAction implements MenuAction {
 
     repository.create(album);
     ctx.use(MainAction.class).execute();
+    System.out.println("Pusty album został dodany");
   }
 
   private boolean pressedZero(String input) {

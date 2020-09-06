@@ -1,7 +1,7 @@
 package io.mbab.sda.groupproject.menu.action;
 
-import io.mbab.sda.groupproject.entity.Album;
 import io.mbab.sda.groupproject.entity.Song;
+import io.mbab.sda.groupproject.entity.Song.SongBuilder;
 import io.mbab.sda.groupproject.menu.CustomScanner;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.repository.AlbumRepository;
@@ -20,17 +20,6 @@ public class CreateSongAction implements MenuAction {
   public void execute() {
     System.out.println("0) Przejdź do poprzedniego menu");
 
-    System.out.println("Podaj id albumu do którego dodajemy utwór: ");
-    var input1 = scanner.nextInt();
-    if (pressedZero(input1)) return;
-    var optAlbum = albumRepository.findById(input1);
-    Album album;
-    if (optAlbum.isPresent()) {
-      album = optAlbum.get();
-    } else {
-      return;
-    }
-
     System.out.println("Podaj tytuł utworu:");
     var input = scanner.nextLine();
     if (pressedZero(input)) return;
@@ -46,7 +35,8 @@ public class CreateSongAction implements MenuAction {
     if (pressedZero(input2)) return;
     builder = builder.songLength(input2);
 
-    var song = builder.album(album).build();
+    addAlbum(builder);
+    Song song = builder.build();
 
     repository.create(song);
     ctx.use(MainAction.class).execute();
@@ -75,4 +65,15 @@ public class CreateSongAction implements MenuAction {
     }
     return false;
   }
+
+  private void addAlbum(SongBuilder builder) {
+    System.out.println("Podaj id albumu do którego dodajemy utwór: ");
+    int albumId = scanner.nextInt();
+    if (pressedZero(albumId)) return;
+    albumRepository.findById(albumId).ifPresentOrElse(album -> builder.album(album), () -> {
+      System.out.println("Podany id albumi nie istnieje");
+      addAlbum(builder);
+    });
+  }
+
 }
