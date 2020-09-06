@@ -1,17 +1,16 @@
 package io.mbab.sda.groupproject.repository;
 
 import io.mbab.sda.groupproject.entity.Album;
-import lombok.RequiredArgsConstructor;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
-@RequiredArgsConstructor
-public class AlbumRepository implements CrudRepository<Album, Integer> {
+public class AlbumRepository extends AbstractCrudRepository<Album, Integer> {
 
-  private final EntityManager em;
+  public AlbumRepository(EntityManager em) {
+    super(em, Album.class);
+  }
 
   @Override
   public List<Album> getAll() {
@@ -21,11 +20,21 @@ public class AlbumRepository implements CrudRepository<Album, Integer> {
 
   @Override
   public Optional<Album> findById(Integer id) {
+    String jpql = "FROM Album";
+    try {
+      var entity = em.createQuery(jpql, Album.class).setParameter("id", id).getSingleResult();
+      return Optional.of(entity);
+    } catch (NoResultException e) {
+      return Optional.empty();
+    }
+  }
+
+  public Optional<Album> findByTitle(String albumTittle) {
     try {
       var criteriaBuilder = em.getCriteriaBuilder();
       var criteriaQuery = criteriaBuilder.createQuery(Album.class);
       var root = criteriaQuery.from(Album.class);
-      var predicate = criteriaBuilder.equal(root.get("id"), id);
+      var predicate = criteriaBuilder.equal(root.get("title"), albumTittle);
       var entity = em.createQuery(criteriaQuery.select(root).where(predicate)).getSingleResult();
       return Optional.of(entity);
     } catch (NoResultException e) {
@@ -33,51 +42,16 @@ public class AlbumRepository implements CrudRepository<Album, Integer> {
     }
   }
 
-  @Override
-  public Album create(Album entity) {
-    em.getTransaction().begin();
-    em.persist(entity);
-    em.getTransaction().commit();
-    return entity;
-  }
-
-  @Override
-  public Album update(Album entity) {
-    return em.merge(entity);
-  }
-
-  @Override
-  public void delete(Integer id) {
-    var criteriaBuilder = em.getCriteriaBuilder();
-    var criteriaDelete = criteriaBuilder.createCriteriaDelete(Album.class);
-    var root = criteriaDelete.from(Album.class);
-    var predicate = criteriaBuilder.equal(root.get("id"), id);
-    em.createQuery(criteriaDelete.where(predicate)).executeUpdate();
-  }
-
-  public Optional<Album> findByTitle(String albumTittle) {
-      try {
-          var criteriaBuilder = em.getCriteriaBuilder();
-          var criteriaQuery = criteriaBuilder.createQuery(Album.class);
-          var root = criteriaQuery.from(Album.class);
-          var predicate = criteriaBuilder.equal(root.get("title"), albumTittle);
-          var entity = em.createQuery(criteriaQuery.select(root).where(predicate)).getSingleResult();
-          return Optional.of(entity);
-      } catch (NoResultException e) {
-          return Optional.empty();
-      }
-  }
-
-  public Optional<Album> findyByReleaseOfYear(Integer relesaeOfYear) {
-      try {
-          var criteriaBuilder = em.getCriteriaBuilder();
-          var criteriaQuery = criteriaBuilder.createQuery(Album.class);
-          var root = criteriaQuery.from(Album.class);
-          var predicate = criteriaBuilder.equal(root.get("releaseOfYear"), relesaeOfYear);
-          var entity = em.createQuery(criteriaQuery.select(root).where(predicate)).getSingleResult();
-          return Optional.of(entity);
-      } catch (NoResultException e) {
-          return Optional.empty();
-      }
+  public Optional<Album> findByReleaseOfYear(Integer relesaeOfYear) {
+    try {
+      var criteriaBuilder = em.getCriteriaBuilder();
+      var criteriaQuery = criteriaBuilder.createQuery(Album.class);
+      var root = criteriaQuery.from(Album.class);
+      var predicate = criteriaBuilder.equal(root.get("releaseOfYear"), relesaeOfYear);
+      var entity = em.createQuery(criteriaQuery.select(root).where(predicate)).getSingleResult();
+      return Optional.of(entity);
+    } catch (NoResultException e) {
+      return Optional.empty();
+    }
   }
 }

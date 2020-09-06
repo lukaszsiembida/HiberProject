@@ -1,58 +1,32 @@
 package io.mbab.sda.groupproject.repository;
 
 import io.mbab.sda.groupproject.entity.Song;
-import lombok.RequiredArgsConstructor;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
-@RequiredArgsConstructor
-public class SongRepository implements CrudRepository<Song, Integer> {
+public class SongRepository extends AbstractCrudRepository<Song, Integer> {
 
-  private final EntityManager em;
+  public SongRepository(EntityManager em) {
+    super(em, Song.class);
+  }
 
   @Override
   public List<Song> getAll() {
-    return em.createQuery("FROM Song", Song.class).getResultList();
+    String jpql = "FROM Song";
+    return em.createQuery(jpql, Song.class).getResultList();
   }
 
   @Override
   public Optional<Song> findById(Integer id) {
-
+    String jpql = "FROM Song";
     try {
-      var criteriaBuilder = em.getCriteriaBuilder();
-      var criteriaQuery = criteriaBuilder.createQuery(Song.class);
-      var root = criteriaQuery.from(Song.class);
-      var predicate = criteriaBuilder.equal(root.get("id"), id);
-      var entity = em.createQuery(criteriaQuery.select(root).where(predicate)).getSingleResult();
+      var entity = em.createQuery(jpql, Song.class).setParameter("id", id).getSingleResult();
       return Optional.of(entity);
     } catch (NoResultException e) {
       return Optional.empty();
     }
-  }
-
-  @Override
-  public Song create(Song entity) {
-    em.getTransaction().begin();
-    em.persist(entity);
-    em.getTransaction().commit();
-    return entity;
-  }
-
-  @Override
-  public Song update(Song entity) {
-    return em.merge(entity);
-  }
-
-  @Override
-  public void delete(Integer id) {
-    var criteriaBuilder = em.getCriteriaBuilder();
-    var criteriaDelete = criteriaBuilder.createCriteriaDelete(Song.class);
-    var root = criteriaDelete.from(Song.class);
-    var predicate = criteriaBuilder.equal(root.get("id"), id);
-    em.createQuery(criteriaDelete.where(predicate)).executeUpdate();
   }
 
   public Optional<Song> findByTitle(String title) {
