@@ -13,4 +13,6 @@ public class CustomScanner {
 
     public Integer nextInt() {return scanner.nextInt();}
 
+    public Double nextDouble() {return scanner.nextDouble();}
+
 }

@@ -13,23 +13,18 @@ public class CreateAlbumAction implements MenuAction {
   private final MenuActionContext ctx;
   private final AlbumRepository repository;
 
-
   @Override
   public void execute() {
     System.out.println("0) Przejdź do poprzedniego menu");
+
     System.out.println("Podaj nazwę albumu:");
-
     var input = scanner.nextLine();
-
     if (pressedZero(input)) return;
-
     var builder = Album.builder().albumTitle(input);
 
     System.out.println("Podaj rok wydania albumu:");
-
     var input2 = scanner.nextInt();
-
-    if (pressedZero(input)) return;
+    if (pressedZero(input2)) return;
 
     var album =  builder.realaseYear(input2).build();
 
@@ -44,4 +39,13 @@ public class CreateAlbumAction implements MenuAction {
     }
     return false;
   }
+
+  private boolean pressedZero(Integer input) {
+    if (input.equals("0")) {
+      ctx.use(MainAction.class).execute();
+      return true;
+    }
+    return false;
+  }
+
 }
