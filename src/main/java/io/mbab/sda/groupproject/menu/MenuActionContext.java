@@ -3,6 +3,8 @@ package io.mbab.sda.groupproject.menu;
 import io.mbab.sda.groupproject.menu.action.*;
 import io.mbab.sda.groupproject.repository.AlbumRepository;
 import io.mbab.sda.groupproject.repository.CrudRepositoryFactory;
+import io.mbab.sda.groupproject.repository.SongRepository;
+import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,5 +37,9 @@ public class MenuActionContext {
     holder.put(
         ViewAlbumsAction.class,
         new ViewAlbumsAction(this, repositoryFactory.get(AlbumRepository.class)));
+    holder.put(
+            CreateSongAction.class,
+            new CreateSongAction(scanner, this, repositoryFactory.get(SongRepository.class),
+            repositoryFactory.get(AlbumRepository.class)));
   }
 }

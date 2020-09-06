@@ -1,7 +1,6 @@
 package io.mbab.sda.groupproject.repository;
 
 import io.mbab.sda.groupproject.entity.City;
-import io.mbab.sda.groupproject.entity.Song;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.EntityManager;
