@@ -18,11 +18,6 @@ public class SongRepository implements CrudRepository<Song, Integer> {
     return em.createQuery("FROM Song", Song.class).getResultList();
   }
 
-  //  @Override
-  //  public Song findById(Integer id) {
-  //    return null;
-  //  }
-
   @Override
   public Optional<Song> findById(Integer id) {
 
