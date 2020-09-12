@@ -1,10 +1,14 @@
 package io.mbab.sda.groupproject.menu.action;
 
 import io.mbab.sda.groupproject.entity.Album;
+import io.mbab.sda.groupproject.entity.Song;
 import io.mbab.sda.groupproject.menu.CustomScanner;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.repository.AlbumRepository;
 import lombok.RequiredArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 public class CreateAlbumAction implements MenuAction {
@@ -26,7 +30,8 @@ public class CreateAlbumAction implements MenuAction {
     var input2 = scanner.nextInt();
     if (pressedZero(input2)) return;
 
-    var album =  builder.realaseYear(input2).build();
+    List<Song> songList = new ArrayList<Song>();
+    var album =  builder.realaseYear(input2).songs(songList).build();
 
     repository.create(album);
     ctx.use(MainAction.class).execute();

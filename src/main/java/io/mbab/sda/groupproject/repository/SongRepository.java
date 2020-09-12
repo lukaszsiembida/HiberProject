@@ -1,8 +1,10 @@
 package io.mbab.sda.groupproject.repository;
 
+import io.mbab.sda.groupproject.entity.Album;
 import io.mbab.sda.groupproject.entity.Song;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import java.util.List;
 import java.util.Optional;
 
 public class SongRepository extends AbstractCrudRepository<Song, Integer> {
@@ -48,5 +50,10 @@ public class SongRepository extends AbstractCrudRepository<Song, Integer> {
     } catch (NoResultException e) {
       return Optional.empty();
     }
+  }
+
+  public List<Song> findByAlbumId(int albumId) {
+   String sql = "SELECT * FROM song WHERE album_id = :id";
+    return em.createNativeQuery(sql,Song.class).setParameter("id", albumId).getResultList();
   }
 }

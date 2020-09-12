@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 @Entity
 @Getter
 @NoArgsConstructor
-@ToString
 public class Album {
 
   @Id
@@ -20,7 +19,7 @@ public class Album {
 
   @Column private Integer realaseYear;
 
-  @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "album", fetch = FetchType.EAGER)
   private List<Song> songs;
 
   @Builder(toBuilder = true)
@@ -28,12 +27,15 @@ public class Album {
     this.id = id;
     this.albumTitle = albumTitle;
     this.realaseYear = realaseYear;
-    this.songs = attachParentToSongs(songs);
+    this.songs = songs;
   }
 
-  private List<Song> attachParentToSongs(List<Song> songs) {
-    return songs.stream()
-        .map(song -> song.toBuilder().album(this).build())
-        .collect(Collectors.toUnmodifiableList());
+  @Override
+  public String toString() {
+    return "Album{" +
+            "id=" + id +
+            ", albumTitle='" + albumTitle + '\'' +
+            ", realaseYear=" + realaseYear +
+            '}';
   }
 }

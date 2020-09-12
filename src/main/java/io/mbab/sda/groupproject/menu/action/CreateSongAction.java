@@ -8,6 +8,9 @@ import io.mbab.sda.groupproject.repository.AlbumRepository;
 import io.mbab.sda.groupproject.repository.SongRepository;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RequiredArgsConstructor
 public class CreateSongAction implements MenuAction {
 
@@ -37,9 +40,20 @@ public class CreateSongAction implements MenuAction {
 
     addAlbum(builder);
     Song song = builder.build();
-
     repository.create(song);
+    song.getAlbum();
+
     ctx.use(MainAction.class).execute();
+  }
+
+  private void addAlbum(SongBuilder builder) {
+    System.out.println("Podaj id albumu do którego dodajemy utwór: ");
+    int albumId = scanner.nextInt();
+    if (pressedZero(albumId)) return;
+    albumRepository.findById(albumId).ifPresentOrElse(album -> builder.album(album), () -> {
+      System.out.println("Podany id albumu nie istnieje");
+      addAlbum(builder);
+    });
   }
 
   private boolean pressedZero(String input) {
@@ -64,16 +78,6 @@ public class CreateSongAction implements MenuAction {
       return true;
     }
     return false;
-  }
-
-  private void addAlbum(SongBuilder builder) {
-    System.out.println("Podaj id albumu do którego dodajemy utwór: ");
-    int albumId = scanner.nextInt();
-    if (pressedZero(albumId)) return;
-    albumRepository.findById(albumId).ifPresentOrElse(album -> builder.album(album), () -> {
-      System.out.println("Podany id albumi nie istnieje");
-      addAlbum(builder);
-    });
   }
 
 }
