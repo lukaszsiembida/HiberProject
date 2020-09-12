@@ -53,7 +53,7 @@ public class SongRepository extends AbstractCrudRepository<Song, Integer> {
   }
 
   public List<Song> findByAlbumId(int albumId) {
-   String sql = "SELECT * FROM song WHERE album_id = :id";
-    return em.createNativeQuery(sql,Song.class).setParameter("id", albumId).getResultList();
+    String sql = "SELECT * FROM song WHERE album_id = :id";
+    return em.createNativeQuery(sql, Song.class).setParameter("id", albumId).getResultList();
   }
 }

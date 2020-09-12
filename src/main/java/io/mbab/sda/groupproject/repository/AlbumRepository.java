@@ -16,7 +16,7 @@ public class AlbumRepository extends AbstractCrudRepository<Album, Integer> {
       var criteriaBuilder = em.getCriteriaBuilder();
       var criteriaQuery = criteriaBuilder.createQuery(Album.class);
       var root = criteriaQuery.from(Album.class);
-      var predicate = criteriaBuilder.like(criteriaBuilder.lower(root.get("albumTitle")), tittle);
+      var predicate = criteriaBuilder.like(criteriaBuilder.lower(root.get("albumTitle")), tittle.toLowerCase());
       return em.createQuery(criteriaQuery.select(root).where(predicate)).getResultList();
   }
 
