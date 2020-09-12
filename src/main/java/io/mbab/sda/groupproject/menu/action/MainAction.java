@@ -19,7 +19,10 @@ public class MainAction implements MenuAction {
     System.out.println("3) Dodaj piosenkę do albumu");
     System.out.println("4) Wyświetl piosenki dla danego albumu");
     System.out.println("5) Wyszukiwanie albumu po tytule");
-
+    System.out.println("6) Wyszukiwanie albumu po roku wydania");
+    System.out.println("7) Wyszukiwanie utworu po tytule");
+    System.out.println("8) Wyszukiwanie utworu po autorze utworu");
+    System.out.println("9) Wyszukiwanie utworu po dlugości utworu");
 
     var input = scanner.nextLine();
 
@@ -53,7 +56,22 @@ public class MainAction implements MenuAction {
       return;
     }
 
-
+    if (input.equals("6")) {
+      ctx.use(ViewAlbumsByRealaseYearAction.class).execute();
+      return;
+    }
+    if (input.equals("7")) {
+      ctx.use(ViewSongsByTitleAction.class).execute();
+      return;
+    }
+    if (input.equals("8")) {
+      ctx.use(ViewSongsByAuthorAction.class).execute();
+      return;
+    }
+    if (input.equals("9")) {
+      ctx.use(ViewSongsByLengthAction.class).execute();
+      return;
+    }
     execute();
   }
 }
