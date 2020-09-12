@@ -47,5 +47,14 @@ public class MenuActionContext {
     holder.put(
             ViewAlbumsByTitleAction.class,
             new ViewAlbumsByTitleAction(scanner, this, repositoryFactory.get(AlbumRepository.class)));
+    holder.put(
+            ViewAlbumsByRealaseYearAction.class,
+            new ViewAlbumsByRealaseYearAction(scanner, this, repositoryFactory.get(AlbumRepository.class)));
+    holder.put(
+            ViewSongsByTitleAction.class, new ViewSongsByTitleAction(scanner,this, repositoryFactory.get(SongRepository.class)));
+    holder.put(ViewSongsByAuthorAction.class,
+            new ViewSongsByAuthorAction(scanner, this, repositoryFactory.get(SongRepository.class)));
+    holder.put(ViewSongsByLengthAction.class,
+            new ViewSongsByLengthAction(scanner, this, repositoryFactory.get(SongRepository.class)));
   }
 }

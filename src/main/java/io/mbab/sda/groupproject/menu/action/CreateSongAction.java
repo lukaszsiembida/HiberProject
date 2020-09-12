@@ -31,7 +31,7 @@ public class CreateSongAction implements MenuAction {
     System.out.println("Podaj nazwisko autora:");
     input = scanner.nextLine();
     if (pressedZero(input)) return;
-    builder = builder.songAutor(input);
+    builder = builder.songAuthor(input);
 
     System.out.println("Podaj długość utworu [min]:");
     var input2 = scanner.nextDouble();

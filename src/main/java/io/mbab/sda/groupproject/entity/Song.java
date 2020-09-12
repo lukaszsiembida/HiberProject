@@ -20,7 +20,7 @@ public class Song {
   private String title;
 
   @Column(length = 64, nullable = false)
-  private String songAutor;
+  private String songAuthor;
 
   @Column(length = 64, nullable = false)
   private Double songLength;
@@ -29,10 +29,10 @@ public class Song {
   private Album album;
 
   @Builder (toBuilder = true)
-  public Song(Integer id, String title, String songAutor, Double songLength, Album album){
+  public Song(Integer id, String title, String songAuthor, Double songLength, Album album){
     this.id=id;
     this.title=title;
-    this.songAutor = songAutor;
+    this.songAuthor = songAuthor;
     this.songLength = songLength;
     this.album = album;
   }

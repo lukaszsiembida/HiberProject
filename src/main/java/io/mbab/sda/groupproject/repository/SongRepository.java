@@ -13,43 +13,27 @@ public class SongRepository extends AbstractCrudRepository<Song, Integer> {
     super(em, Song.class);
   }
 
-  public Optional<Song> findByTitle(String title) {
-    try {
-      var criteriaBuilder = em.getCriteriaBuilder();
-      var criteriaQuery = criteriaBuilder.createQuery(Song.class);
-      var root = criteriaQuery.from(Song.class);
-      var predicate = criteriaBuilder.equal(root.get("title"), title);
-      var entity = em.createQuery(criteriaQuery.select(root).where(predicate)).getSingleResult();
-      return Optional.of(entity);
-    } catch (NoResultException e) {
-      return Optional.empty();
-    }
+  public List<Song> findByTitle(String songTitle) {
+    var criteriaBuilder = em.getCriteriaBuilder();
+    var criteriaQuery = criteriaBuilder.createQuery(Song.class);
+    var root = criteriaQuery.from(Song.class);
+    var predicate = criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), songTitle.toLowerCase());
+    return em.createQuery(criteriaQuery.select(root).where(predicate)).getResultList();
   }
 
-  public Optional<Song> findBySongLength(Double songLength) {
-    try {
+  public List<Song> findBySongLength(Double songLength) {
       var criteriaBuilder = em.getCriteriaBuilder();
       var criteriaQuery = criteriaBuilder.createQuery(Song.class);
       var root = criteriaQuery.from(Song.class);
       var predicate = criteriaBuilder.equal(root.get("songLength"), songLength);
-      var entity = em.createQuery(criteriaQuery.select(root).where(predicate)).getSingleResult();
-      return Optional.of(entity);
-    } catch (NoResultException e) {
-      return Optional.empty();
-    }
+      return em.createQuery(criteriaQuery.select(root).where(predicate)).getResultList();
   }
 
-  public Optional<Song> findBySongAutor(String songAutor) {
-    try {
-      var criteriaBuilder = em.getCriteriaBuilder();
-      var criteriaQuery = criteriaBuilder.createQuery(Song.class);
-      var root = criteriaQuery.from(Song.class);
-      var predicate = criteriaBuilder.equal(root.get("songAutor"), songAutor);
-      var entity = em.createQuery(criteriaQuery.select(root).where(predicate)).getSingleResult();
-      return Optional.of(entity);
-    } catch (NoResultException e) {
-      return Optional.empty();
-    }
+  public List<Song> findBySongAuthor(String author) { var criteriaBuilder = em.getCriteriaBuilder();
+    var criteriaQuery = criteriaBuilder.createQuery(Song.class);
+    var root = criteriaQuery.from(Song.class);
+    var predicate = criteriaBuilder.like(criteriaBuilder.lower(root.get("songAuthor")), author.toLowerCase());
+    return em.createQuery(criteriaQuery.select(root).where(predicate)).getResultList();
   }
 
   public List<Song> findByAlbumId(int albumId) {

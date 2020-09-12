@@ -20,17 +20,13 @@ public class AlbumRepository extends AbstractCrudRepository<Album, Integer> {
       return em.createQuery(criteriaQuery.select(root).where(predicate)).getResultList();
   }
 
-  public Optional<Album> findByReleaseOfYear(Integer relesaeOfYear) {
-    try {
-      var criteriaBuilder = em.getCriteriaBuilder();
-      var criteriaQuery = criteriaBuilder.createQuery(Album.class);
-      var root = criteriaQuery.from(Album.class);
-      var predicate = criteriaBuilder.equal(root.get("releaseOfYear"), relesaeOfYear);
-      var entity = em.createQuery(criteriaQuery.select(root).where(predicate)).getSingleResult();
-      return Optional.of(entity);
-    } catch (NoResultException e) {
-      return Optional.empty();
+    public List<Album> findByReleaseOfYear(Integer relesaeOfYear) {
+        var criteriaBuilder = em.getCriteriaBuilder();
+        var criteriaQuery = criteriaBuilder.createQuery(Album.class);
+        var root = criteriaQuery.from(Album.class);
+        var predicate = criteriaBuilder.equal(root.get("realaseYear"), relesaeOfYear);
+
+        return em.createQuery(criteriaQuery.select(root).where(predicate)).getResultList();
     }
-  }
 
 }
