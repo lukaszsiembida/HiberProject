@@ -2,9 +2,7 @@ package io.mbab.sda.groupproject.repository;
 
 import io.mbab.sda.groupproject.entity.Album;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import java.util.List;
-import java.util.Optional;
 
 public class AlbumRepository extends AbstractCrudRepository<Album, Integer> {
 
