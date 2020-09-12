@@ -1,5 +1,6 @@
 package io.mbab.sda.groupproject.entity;
 
+import io.mbab.sda.groupproject.repository.SongRepository;
 import lombok.*;
 
 import javax.persistence.*;

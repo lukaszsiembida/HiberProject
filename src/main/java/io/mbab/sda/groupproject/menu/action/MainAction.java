@@ -12,10 +12,14 @@ public class MainAction implements MenuAction {
 
   @Override
   public void execute() {
+    System.out.println("========= MENU ===========");
     System.out.println("0) Zamknij aplikację");
     System.out.println("1) Dodaj album");
     System.out.println("2) Wyswietl album");
     System.out.println("3) Dodaj piosenkę do albumu");
+    System.out.println("4) Wyświetl piosenki dla danego albumu");
+    System.out.println("5) Wyszukiwanie albumu po tytule");
+
 
     var input = scanner.nextLine();
 
@@ -39,7 +43,17 @@ public class MainAction implements MenuAction {
       return;
     }
 
-    System.out.println("Wprowadzono nieprawidłowa wartość!");
+    if (input.equals("4")) {
+      ctx.use(ViewSongsAction.class).execute();
+      return;
+    }
+
+    if (input.equals("5")) {
+      ctx.use(ViewAlbumsByTitleAction.class).execute();
+      return;
+    }
+
+
     execute();
   }
 }
